@@ -1,4 +1,4 @@
-# Legion ALC287 + AW88399
+# Legion ALC287 + AW88399 for macOS
 
 macOS speaker support for the Lenovo Legion Y9000P IAX10H (83F5), combining an AW88399 amplifier driver, a shared-DAC AppleALC fork, and a VoodooI2C resource patch.
 

@@ -1,4 +1,4 @@
-# 0.1.0 — initial audio suite
+# 0.1.0 — initial macOS audio suite
 
 Includes AW88399Driver source and a matched build of Lilu, the shared-DAC AppleALC fork, VoodooI2C with dual-resource and 7F4C–7F4F matching, VoodooInput plug-in, and VoodooI2CHID. Dependencies are pinned by commit; the package includes hashes and build metadata.
 
