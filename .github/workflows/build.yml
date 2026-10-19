@@ -11,10 +11,10 @@ jobs:
   build:
     runs-on: macos-26-intel
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
       - name: Build pinned audio suite
         run: python3 tools/build.py
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: Legion-ALC287-AW88399-macOS
           path: .build/Legion-ALC287-AW88399-macOS-0.1.0.zip
@@ -26,8 +26,8 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: actions/checkout@v5
-      - uses: actions/download-artifact@v4
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
         with:
           name: Legion-ALC287-AW88399-macOS
           path: release
@@ -35,5 +35,5 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          sha256sum release/*.zip > release/SHA256SUMS
+          (cd release && sha256sum *.zip > SHA256SUMS)
           gh release create "$GITHUB_REF_NAME" release/*.zip release/SHA256SUMS --verify-tag --prerelease --title "$GITHUB_REF_NAME" --notes-file docs/RELEASE.md
