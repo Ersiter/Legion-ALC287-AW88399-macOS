@@ -34,8 +34,8 @@ AW88399Driver controls the two I2C amplifiers using the retained Linux ACF parse
 On macOS with full Xcode selected:
 
 ```sh
-git clone https://github.com/Ersiter/Legion-ALC287-AW88399.git
-cd Legion-ALC287-AW88399
+git clone https://github.com/Ersiter/Legion-ALC287-AW88399-macOS.git
+cd Legion-ALC287-AW88399-macOS
 python3 tools/build.py
 ```
 

@@ -100,6 +100,16 @@ def main():
             shutil.copyfile(ROOT / name, target)
     aw_info = plistlib.loads((kexts / 'AW88399Driver.kext/Contents/Info.plist').read_bytes())
     assert 'AW88399FirmwareData' not in aw_info['IOKitPersonalities']['AW88399Driver']
+    license_sources = {name: path for name, path in deps.items()}
+    i2c_source = deps['VoodooI2C']
+    license_sources['VoodooGPIO'] = i2c_source / 'Dependencies/VoodooGPIO'
+    license_sources['VoodooI2CHID'] = i2c_source / 'VoodooI2C Satellites/VoodooI2CHID'
+    for name, path in license_sources.items():
+        for license_file in path.glob('LICENSE*'):
+            if license_file.is_file():
+                target = dist / 'LICENSES' / name / license_file.name
+                target.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copyfile(license_file, target)
     manifest = {'projectCommit': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip(),
                 'dependencies': LOCK, 'xcode': subprocess.check_output(['xcodebuild', '-version'], text=True),
                 'sdk': subprocess.check_output(['xcrun', '--show-sdk-version'], text=True),
@@ -114,7 +124,7 @@ def main():
     (dist / 'build-manifest.json').write_text(json.dumps(manifest, indent=2) + '\n')
     checksums.append(f"{hashlib.sha256((dist / 'build-manifest.json').read_bytes()).hexdigest()}  build-manifest.json\n")
     (dist / 'SHA256SUMS').write_text(''.join(checksums))
-    run('ditto', '-c', '-k', '--keepParent', dist, BUILD / 'Legion-ALC287-AW88399-0.1.0.zip')
+    run('ditto', '-c', '-k', '--keepParent', dist, BUILD / 'Legion-ALC287-AW88399-macOS-0.1.0.zip')
     print('Built firmware-free release. Import the qualified ACF locally before installing AW88399Driver.')
 
 

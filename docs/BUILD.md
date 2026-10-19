@@ -3,8 +3,8 @@
 Use an Intel macOS host with full Xcode selected, Command Line Tools, Git, and Python 3. The successful embedded-firmware baseline used Xcode 26.4 / SDK 26.4 on macOS 26.4 (25E246); the target machine runs 26.7 (25G229). The project builds x86_64 kernel bundles with deployment target 26.0 and a pinned MacKernelSDK; no separate KDK download is required.
 
 ```sh
-git clone https://github.com/Ersiter/Legion-ALC287-AW88399.git
-cd Legion-ALC287-AW88399
+git clone https://github.com/Ersiter/Legion-ALC287-AW88399-macOS.git
+cd Legion-ALC287-AW88399-macOS
 python3 tools/build.py > build.log 2>&1
 ```
 
@@ -14,7 +14,7 @@ The script builds Lilu Debug for the AppleALC development interface, Lilu Releas
 
 Output:
 
-- `.build/Legion-ALC287-AW88399-0.1.0.zip`: firmware-free matching kext set and installation materials.
+- `.build/Legion-ALC287-AW88399-macOS-0.1.0.zip`: firmware-free matching kext set and installation materials.
 - `dist/build-manifest.json`: project/dependency commits, Xcode/SDK versions, and file hashes.
 - `dist/SHA256SUMS`: package-content hashes before local firmware import.
 
