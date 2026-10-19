@@ -35,5 +35,10 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          (cd release && sha256sum *.zip > SHA256SUMS)
-          gh release create "$GITHUB_REF_NAME" release/*.zip release/SHA256SUMS --verify-tag --prerelease --title "$GITHUB_REF_NAME" --notes-file docs/RELEASE.md
+          cp docs/RELEASE.md release-notes.md
+          {
+            printf '\n## SHA-256\n\n```text\n'
+            (cd release && sha256sum *.zip)
+            printf '```\n'
+          } >> release-notes.md
+          gh release create "$GITHUB_REF_NAME" release/*.zip --verify-tag --prerelease --title "$GITHUB_REF_NAME" --notes-file release-notes.md

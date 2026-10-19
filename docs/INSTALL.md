@@ -14,6 +14,14 @@ Run this inside the extracted package:
 python3 tools/import_firmware.py /path/to/aw88399_acf.bin Kexts/AW88399Driver.kext
 ```
 
+Or download and import the pinned third-party copy locally:
+
+```sh
+python3 tools/import_firmware.py --download Kexts/AW88399Driver.kext
+```
+
+See [FIRMWARE.md](FIRMWARE.md) for its source and redistribution status. This command does not install the bundle into an EFI.
+
 The input must be 152,416 bytes with SHA-256 `1e927c9bca76d868181c0f81df2bccef3cf19c7d0910219f229360c87babd42c`. On macOS the tool ad-hoc signs and verifies the changed bundle. Without imported firmware the amplifier driver refuses to initialize. Do not upload the modified bundle.
 
 ## OpenCore changes

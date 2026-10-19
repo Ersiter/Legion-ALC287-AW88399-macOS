@@ -10,7 +10,15 @@ Its redistribution terms have not been established. This repository and its publ
 
 Obtain the ACF through your own machine's licensed driver package or an existing local copy. A Windows file named `AWDZ8399.bin` is not accepted solely because of its name: its full hash and length must match. This release supplies an import method, not a Windows driver extractor or permission to redistribute vendor content.
 
-From the extracted release, import it locally:
+Alternatively, download and import the exact qualified ACF locally from [nadimkobeissi/16iax10h-linux-sound-saga](https://github.com/nadimkobeissi/16iax10h-linux-sound-saga/blob/65d988f775245b0506a66f57c31d1920b9fb4cad/fix/firmware/aw88399_acf.bin):
+
+```sh
+python3 tools/import_firmware.py --download Kexts/AW88399Driver.kext
+```
+
+The download is pinned to commit `65d988f775245b0506a66f57c31d1920b9fb4cad`, with the length and SHA-256 checked before modifying the bundle. This third-party hosting does not establish redistribution permission. The download happens only when you run this command locally; CI and release packages remain firmware-free.
+
+To import an existing local file instead:
 
 ```sh
 python3 tools/import_firmware.py /path/to/aw88399_acf.bin Kexts/AW88399Driver.kext
