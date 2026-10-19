@@ -1,0 +1,8 @@
+.build/
+dist/
+*.bin
+AW88399FirmwareData.hpp
+*.kext/
+*.dSYM/
+__pycache__/
+.DS_Store

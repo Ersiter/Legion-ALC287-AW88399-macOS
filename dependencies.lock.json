@@ -1,0 +1,26 @@
+{
+  "AppleALC": {
+    "repository": "https://github.com/Ersiter/AppleALC.git",
+    "commit": "5f2c884f52384ba6a12485f08ead75ebdb7faf5a",
+    "upstream": "https://github.com/acidanthera/AppleALC.git",
+    "upstreamCommit": "c44a22fb41876e9c19a93e89454e2efa18006735"
+  },
+  "Lilu": {
+    "repository": "https://github.com/acidanthera/Lilu.git",
+    "commit": "0515f40b7f2a096adc85e832a4c6104fbd07f936"
+  },
+  "MacKernelSDK": {
+    "repository": "https://github.com/acidanthera/MacKernelSDK.git",
+    "commit": "3f750085caa17ec3a7880f11c11bf4f48cd6a164"
+  },
+  "VoodooI2C": {
+    "repository": "https://github.com/VoodooI2C/VoodooI2C.git",
+    "commit": "5c0c99cc451b03790c684ce6552c3f61620ad46b",
+    "patch": "patches/VoodooI2C/0001-dual-resources-and-arrow-lake.patch",
+    "submodules": "recursive gitlinks from this commit"
+  },
+  "VoodooInput": {
+    "repository": "https://github.com/acidanthera/VoodooInput.git",
+    "commit": "d897813718c2ef9ad143b6a86240fe52dcb1693e"
+  }
+}

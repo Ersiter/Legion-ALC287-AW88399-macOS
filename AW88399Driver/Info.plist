@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>CFBundleIdentifier</key>
+    <string>org.codex.AW88399Driver</string>
+    <key>CFBundleExecutable</key>
+    <string>AW88399Driver</string>
+    <key>CFBundleName</key>
+    <string>AW88399Driver</string>
+    <key>CFBundlePackageType</key>
+    <string>KEXT</string>
+    <key>CFBundleVersion</key>
+    <string>0.2</string>
+    <key>OSBundleRequired</key>
+    <string>Root</string>
+    <key>OSBundleLibraries</key>
+    <dict>
+        <key>com.alexandred.VoodooI2C</key>
+        <string>2.0.0</string>
+        <key>com.alexandred.VoodooI2CServices</key>
+        <string>1.0</string>
+        <key>com.apple.kpi.iokit</key>
+        <string>14.0.0</string>
+        <key>com.apple.kpi.libkern</key>
+        <string>14.0.0</string>
+    </dict>
+    <key>IOKitPersonalities</key>
+    <dict>
+        <key>AW88399Driver</key>
+        <dict>
+            <key>CFBundleIdentifier</key>
+            <string>org.codex.AW88399Driver</string>
+            <key>IOClass</key>
+            <string>AW88399Driver</string>
+            <key>IONameMatch</key>
+            <string>SPKR</string>
+            <key>IOProviderClass</key>
+            <string>VoodooI2CDeviceNub</string>
+            <key>IOProbeScore</key>
+            <integer>500</integer>
+        </dict>
+    </dict>
+</dict>
+</plist>

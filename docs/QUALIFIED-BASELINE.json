@@ -1,0 +1,23 @@
+{
+  "date": "2026-10-19",
+  "hardware": "Lenovo 83F5 Legion Y9000P IAX10H",
+  "macOS": "26.7 (25G229)",
+  "toolchain": "Xcode 26.4 / SDK 26.4",
+  "ownerReported": [
+    "tweeters and woofers",
+    "internal microphone",
+    "volume and mute",
+    "pitch and discontinuity regression resolved"
+  ],
+  "firmwareDelivery": "private embedded ACF; public personality-import packaging needs hardware qualification",
+  "binarySHA256": {
+    "AppleALC.kext/Contents/MacOS/AppleALC": "2f4460f57eb7c037b532239c5a5ee33bb6c353798d83321faba4421cb52344f6",
+    "AW88399Driver.kext/Contents/MacOS/AW88399Driver": "73607f9652b26ccdc1ab91da60e69660dd8f0a2d9874e36888dfa19e2fab209e",
+    "VoodooI2C.kext/Contents/MacOS/VoodooI2C": "231c3ff085eb221e01fc4df4a36632bbf9ec4d749bb511216033136260bc01ba",
+    "VoodooI2C.kext/Contents/PlugIns/VoodooGPIO.kext/Contents/MacOS/VoodooGPIO": "502931d0f80a0fa83740ebedac1c2ba1bbb7d289b73e12d11f9dd719d9bb4a6c",
+    "VoodooI2C.kext/Contents/PlugIns/VoodooI2CServices.kext/Contents/MacOS/VoodooI2CServices": "08325287c3d7a7faa8cbe3cf7c7f5c74137610d10d18ac00bdba293face36a85",
+    "VoodooI2C.kext/Contents/PlugIns/VoodooInput.kext/Contents/MacOS/VoodooInput": "2e43a7ebf0d027f76a6358b3fdb2a89ac66e6c7799c1bfcf98f20f7587740c87",
+    "VoodooI2CHID.kext/Contents/MacOS/VoodooI2CHID": "1ba930b05d5c786b97353a63767fab090125d8d3e665443db4e07e46ab8b2e53",
+    "Lilu.kext/Contents/MacOS/Lilu": "e3f00df5aca98c70363489292514f088ae3b667417c9c5afdd33799ff09390bd"
+  }
+}

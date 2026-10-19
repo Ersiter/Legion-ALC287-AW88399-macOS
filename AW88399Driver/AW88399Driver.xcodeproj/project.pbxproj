@@ -1,0 +1,73 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A88399000000000000000001 /* AW88399Compat.c in Sources */ = {isa = PBXBuildFile; fileRef = A88399000000000000000011 /* AW88399Compat.c */; };
+		A88399000000000000000002 /* AW88399I2CProtocol.c in Sources */ = {isa = PBXBuildFile; fileRef = A88399000000000000000012 /* AW88399I2CProtocol.c */; };
+		A88399000000000000000003 /* aw88395_lib.c in Sources */ = {isa = PBXBuildFile; fileRef = A88399000000000000000013 /* aw88395_lib.c */; };
+		A88399000000000000000004 /* aw88395_device.c in Sources */ = {isa = PBXBuildFile; fileRef = A88399000000000000000014 /* aw88395_device.c */; };
+		A88399000000000000000005 /* aw88399-lib.c in Sources */ = {isa = PBXBuildFile; fileRef = A88399000000000000000015 /* aw88399-lib.c */; };
+		A88399000000000000000006 /* AW88399Driver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A88399000000000000000016 /* AW88399Driver.cpp */; };
+		A88399000000000000000007 /* libkmod.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A88399000000000000000017 /* libkmod.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		A88399000000000000000011 /* AW88399Compat.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "AW88399Compat.c"; sourceTree = "<group>"; };
+		A88399000000000000000012 /* AW88399I2CProtocol.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "AW88399I2CProtocol.c"; sourceTree = "<group>"; };
+		A88399000000000000000013 /* aw88395_lib.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "aw88395/aw88395_lib.c"; sourceTree = "<group>"; };
+		A88399000000000000000014 /* aw88395_device.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "aw88395/aw88395_device.c"; sourceTree = "<group>"; };
+		A88399000000000000000015 /* aw88399-lib.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "aw88399/aw88399-lib.c"; sourceTree = "<group>"; };
+		A88399000000000000000016 /* AW88399Driver.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "AW88399Driver.cpp"; sourceTree = "<group>"; };
+		A88399000000000000000017 /* libkmod.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libkmod.a; path = "$(MAC_KERNEL_SDK_DIR)/Library/x86_64/libkmod.a"; sourceTree = "<absolute>"; };
+		A88399000000000000000018 /* AW88399Driver.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AW88399Driver.hpp; sourceTree = "<group>"; };
+		A88399000000000000000019 /* AW88399Compat.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AW88399Compat.h; sourceTree = "<group>"; };
+		A8839900000000000000001A /* AW88399I2CProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AW88399I2CProtocol.h; sourceTree = "<group>"; };
+		A8839900000000000000001B /* VoodooI2CDeviceNubAPI.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = VoodooI2CDeviceNubAPI.hpp; sourceTree = "<group>"; };
+		A8839900000000000000001C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A8839900000000000000001D /* AW88399Driver.kext */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AW88399Driver.kext; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A88399000000000000000021 /* Frameworks */ = {isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (A88399000000000000000007 /* libkmod.a in Frameworks */,); runOnlyForDeploymentPostprocessing = 0; };
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A88399000000000000000031 = {isa = PBXGroup; children = (A88399000000000000000032 /* Sources */, A88399000000000000000033 /* Vendor */, A88399000000000000000034 /* Headers */, A8839900000000000000001C /* Info.plist */, A88399000000000000000035 /* Products */,); sourceTree = "<group>"; };
+		A88399000000000000000032 /* Sources */ = {isa = PBXGroup; children = (A88399000000000000000011, A88399000000000000000012, A88399000000000000000016,); path = "."; sourceTree = "<group>"; };
+		A88399000000000000000033 /* Vendor */ = {isa = PBXGroup; children = (A88399000000000000000013, A88399000000000000000014, A88399000000000000000015,); name = Vendor; path = vendor; sourceTree = "<group>"; };
+		A88399000000000000000034 /* Headers */ = {isa = PBXGroup; children = (A88399000000000000000018, A88399000000000000000019, A8839900000000000000001A, A8839900000000000000001B,); name = Headers; sourceTree = "<group>"; };
+		A88399000000000000000035 /* Products */ = {isa = PBXGroup; children = (A8839900000000000000001D /* AW88399Driver.kext */,); name = Products; sourceTree = "<group>"; };
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A88399000000000000000041 /* AW88399Driver */ = {isa = PBXNativeTarget; buildConfigurationList = A88399000000000000000052 /* Build configuration list for PBXNativeTarget "AW88399Driver" */; buildPhases = (A88399000000000000000042 /* Sources */, A88399000000000000000021 /* Frameworks */,); buildRules = (); dependencies = (); name = AW88399Driver; productName = AW88399Driver; productReference = A8839900000000000000001D /* AW88399Driver.kext */; productType = "com.apple.product-type.kernel-extension"; };
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A88399000000000000000051 /* Project object */ = {isa = PBXProject; attributes = {BuildIndependentTargetsInParallel = 1; LastUpgradeCheck = 2640; }; buildConfigurationList = A88399000000000000000053 /* Build configuration list for PBXProject "AW88399Driver" */; compatibilityVersion = "Xcode 14.0"; developmentRegion = en; mainGroup = A88399000000000000000031; productRefGroup = A88399000000000000000035 /* Products */; projectDirPath = ""; projectRoot = ""; targets = (A88399000000000000000041 /* AW88399Driver */,); };
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A88399000000000000000042 /* Sources */ = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (A88399000000000000000001 /* AW88399Compat.c in Sources */, A88399000000000000000002 /* AW88399I2CProtocol.c in Sources */, A88399000000000000000003 /* aw88395_lib.c in Sources */, A88399000000000000000004 /* aw88395_device.c in Sources */, A88399000000000000000005 /* aw88399-lib.c in Sources */, A88399000000000000000006 /* AW88399Driver.cpp in Sources */,); runOnlyForDeploymentPostprocessing = 0; };
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		A88399000000000000000061 /* Debug */ = {isa = XCBuildConfiguration; buildSettings = {ARCHS = x86_64; CLANG_CXX_LANGUAGE_STANDARD = "c++17"; CODE_SIGNING_ALLOWED = NO; DEBUG_INFORMATION_FORMAT = dwarf; GCC_C_LANGUAGE_STANDARD = gnu11; HEADER_SEARCH_PATHS = ("$(PROJECT_DIR)", "$(PROJECT_DIR)/vendor", "$(PROJECT_DIR)/vendor/aw88395", "$(PROJECT_DIR)/vendor/aw88399", "$(SDKROOT)/System/Library/Frameworks/Kernel.framework/Versions/A/Headers", "$(SDKROOT)/System/Library/Frameworks/Kernel.framework/Versions/A/PrivateHeaders", "$(SDKROOT)/usr/include",); KERNEL_EXTENSION_HEADER_SEARCH_PATHS = "$(SDKROOT)/System/Library/Frameworks/Kernel.framework/Versions/A/Headers"; KERNEL_FRAMEWORK_HEADERS = "$(SDKROOT)/System/Library/Frameworks/Kernel.framework/Versions/A/Headers"; LIBRARY_SEARCH_PATHS = "$(MAC_KERNEL_SDK_DIR)/Library/x86_64"; MACOSX_DEPLOYMENT_TARGET = "26.0"; MODULE_NAME = org_codex_AW88399Driver; MODULE_VERSION = 0.2; OTHER_CFLAGS = ("-Wno-unused-parameter", "-Wno-pointer-sign", "-Wno-sign-compare"); OTHER_CPLUSPLUSFLAGS = ("-Wno-unused-parameter", "-Wno-deprecated-declarations", "-Wno-inconsistent-missing-override"); PRODUCT_BUNDLE_IDENTIFIER = "org.codex.AW88399Driver"; PRODUCT_NAME = AW88399Driver; SDKROOT = macosx; WRAPPER_EXTENSION = kext; }; name = Debug; };
+		A88399000000000000000062 /* Release */ = {isa = XCBuildConfiguration; buildSettings = {ARCHS = x86_64; CLANG_CXX_LANGUAGE_STANDARD = "c++17"; CODE_SIGNING_ALLOWED = NO; DEBUG_INFORMATION_FORMAT = dwarf-with-dsym; GCC_C_LANGUAGE_STANDARD = gnu11; HEADER_SEARCH_PATHS = ("$(PROJECT_DIR)", "$(PROJECT_DIR)/vendor", "$(PROJECT_DIR)/vendor/aw88395", "$(PROJECT_DIR)/vendor/aw88399", "$(SDKROOT)/System/Library/Frameworks/Kernel.framework/Versions/A/Headers", "$(SDKROOT)/System/Library/Frameworks/Kernel.framework/Versions/A/PrivateHeaders", "$(SDKROOT)/usr/include",); KERNEL_EXTENSION_HEADER_SEARCH_PATHS = "$(SDKROOT)/System/Library/Frameworks/Kernel.framework/Versions/A/Headers"; KERNEL_FRAMEWORK_HEADERS = "$(SDKROOT)/System/Library/Frameworks/Kernel.framework/Versions/A/Headers"; LIBRARY_SEARCH_PATHS = "$(MAC_KERNEL_SDK_DIR)/Library/x86_64"; MACOSX_DEPLOYMENT_TARGET = "26.0"; MODULE_NAME = org_codex_AW88399Driver; MODULE_VERSION = 0.2; OTHER_CFLAGS = ("-Wno-unused-parameter", "-Wno-pointer-sign", "-Wno-sign-compare"); OTHER_CPLUSPLUSFLAGS = ("-Wno-unused-parameter", "-Wno-deprecated-declarations", "-Wno-inconsistent-missing-override"); PRODUCT_BUNDLE_IDENTIFIER = "org.codex.AW88399Driver"; PRODUCT_NAME = AW88399Driver; SDKROOT = macosx; WRAPPER_EXTENSION = kext; }; name = Release; };
+		A88399000000000000000063 /* Debug */ = {isa = XCBuildConfiguration; buildSettings = {INFOPLIST_FILE = "Info.plist"; }; name = Debug; };
+		A88399000000000000000064 /* Release */ = {isa = XCBuildConfiguration; buildSettings = {INFOPLIST_FILE = "Info.plist"; }; name = Release; };
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A88399000000000000000052 /* Build configuration list for PBXNativeTarget "AW88399Driver" */ = {isa = XCConfigurationList; buildConfigurations = (A88399000000000000000061 /* Debug */, A88399000000000000000062 /* Release */,); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
+		A88399000000000000000053 /* Build configuration list for PBXProject "AW88399Driver" */ = {isa = XCConfigurationList; buildConfigurations = (A88399000000000000000063 /* Debug */, A88399000000000000000064 /* Release */,); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
+/* End XCConfigurationList section */
+
+	};
+	rootObject = A88399000000000000000051 /* Project object */;
+}

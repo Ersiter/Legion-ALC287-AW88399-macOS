@@ -1,0 +1,199 @@
+diff --git a/Dependencies/VoodooI2CACPIResourcesParser/VoodooI2CACPIResourcesParser.cpp b/Dependencies/VoodooI2CACPIResourcesParser/VoodooI2CACPIResourcesParser.cpp
+index 75a6fd0..c3edaa0 100644
+--- a/Dependencies/VoodooI2CACPIResourcesParser/VoodooI2CACPIResourcesParser.cpp
++++ b/Dependencies/VoodooI2CACPIResourcesParser/VoodooI2CACPIResourcesParser.cpp
+@@ -17,11 +17,11 @@
+ VoodooI2CACPIResourcesParser::VoodooI2CACPIResourcesParser() {
+     found_gpio_interrupts = false;
+     found_i2c = false;
++    i2c_count = 0;
++    i2c_overflow = false;
+ }
+ 
+ void VoodooI2CACPIResourcesParser::parseACPISerialBus(uint8_t const* res, uint32_t offset, uint32_t sz) {
+-    if (found_i2c)
+-        return;
+     if (offset >= sz)
+         return;
+     uint8_t opcode = res[offset];
+@@ -44,19 +44,24 @@ void VoodooI2CACPIResourcesParser::parseACPISerialBus(uint8_t const* res, uint32
+     memcpy(&datalen, res + offset + 10, sizeof(uint16_t));*/
+     
+     if (bustype == 1) {
++        if (i2c_count >= 8) {
++            i2c_overflow = true;
++            return;
++        }
++        ::i2c_info &info = this->i2c_info[i2c_count++];
+         found_i2c = true;
+         
+-        i2c_info.resource_consumer = (flags >> 1) & 0x1;
+-        i2c_info.device_initiated = flags & 0x1;
+-        i2c_info.address_mode_10Bit = tflags & 0x1;
++        info.resource_consumer = (flags >> 1) & 0x1;
++        info.device_initiated = flags & 0x1;
++        info.address_mode_10Bit = tflags & 0x1;
+         
+         uint32_t busspeed;
+         memcpy(&busspeed, res + offset + 12, sizeof(uint32_t));
+-        i2c_info.bus_speed = busspeed;
++        info.bus_speed = busspeed;
+         
+         uint16_t address;
+         memcpy(&address, res + offset + 16, sizeof(uint16_t));
+-        i2c_info.address = address;
++        info.address = address;
+         
+         /*uint8_t i2cLen = len - (12 + datalen - 3);
+         
+diff --git a/Dependencies/VoodooI2CACPIResourcesParser/VoodooI2CACPIResourcesParser.hpp b/Dependencies/VoodooI2CACPIResourcesParser/VoodooI2CACPIResourcesParser.hpp
+index 1a357b0..54b3f83 100644
+--- a/Dependencies/VoodooI2CACPIResourcesParser/VoodooI2CACPIResourcesParser.hpp
++++ b/Dependencies/VoodooI2CACPIResourcesParser/VoodooI2CACPIResourcesParser.hpp
+@@ -47,10 +47,12 @@ struct gpio_io_info {
+ class VoodooI2CACPIResourcesParser {
+ public:
+     bool found_i2c;
++    uint8_t i2c_count;
++    bool i2c_overflow;
+     bool found_gpio_interrupts;
+     bool found_gpio_io;
+     
+-    i2c_info i2c_info;
++    i2c_info i2c_info[8];
+     gpio_int_info gpio_interrupts;
+     gpio_io_info gpio_io;
+     
+diff --git a/VoodooI2C/VoodooI2C/Info.plist b/VoodooI2C/VoodooI2C/Info.plist
+index 1c83521..56b52c2 100644
+--- a/VoodooI2C/VoodooI2C/Info.plist
++++ b/VoodooI2C/VoodooI2C/Info.plist
+@@ -573,7 +573,7 @@
+ 			<key>IOClass</key>
+ 			<string>VoodooI2CPCIController</string>
+ 			<key>IOPCIMatch</key>
+-			<string>0x34e88086&amp;0xFFFCFFFF</string>
++			<string>0x34e88086&amp;0xFFFCFFFF 0x7f4c8086&amp;0xFFFCFFFF</string>
+ 			<key>IOProbeScore</key>
+ 			<integer>9999</integer>
+ 			<key>IOProviderClass</key>
+diff --git a/VoodooI2C/VoodooI2C/VoodooI2CController/VoodooI2CControllerDriver.cpp b/VoodooI2C/VoodooI2C/VoodooI2CController/VoodooI2CControllerDriver.cpp
+index 3c224e1..7c53f9c 100644
+--- a/VoodooI2C/VoodooI2C/VoodooI2CController/VoodooI2CControllerDriver.cpp
++++ b/VoodooI2C/VoodooI2C/VoodooI2CController/VoodooI2CControllerDriver.cpp
+@@ -408,22 +408,34 @@ IOReturn VoodooI2CControllerDriver::publishNubs() {
+     while ((child = OSDynamicCast(IOService, children->getNextObject()))) {
+         IOLog("%s::%s Found I2C device: %s\n", getName(), bus_device.name, getMatchedName(child));
+ 
+-        VoodooI2CDeviceNub* device_nub = OSTypeAlloc(VoodooI2CDeviceNub);
+-        OSDictionary* child_properties = child->dictionaryWithProperties();
+-
+-        if (!device_nub ||
+-            !device_nub->init(child_properties) ||
+-            !device_nub->attach(this, child)) {
+-            IOLog("%s::%s Could not initialise nub for %s\n", getName(), bus_device.name, getMatchedName(child));
+-        } else if (!device_nub->start(this)) {
+-            device_nub->detach(this);
+-            IOLog("%s::%s Could not start nub for %s\n", getName(), bus_device.name, getMatchedName(child));
+-        } else {
+-            device_nubs->setObject(device_nub);
+-        }
++        UInt8 resourceCount = 1;
++        for (UInt8 resourceIndex = 0; resourceIndex < resourceCount; resourceIndex++) {
++            VoodooI2CDeviceNub* device_nub = OSTypeAlloc(VoodooI2CDeviceNub);
++            OSDictionary* child_properties = child->dictionaryWithProperties();
++
++            if (!device_nub || !device_nub->init(child_properties) ||
++                !device_nub->attach(this, child, resourceIndex)) {
++                IOLog("%s::%s Could not initialise nub %u for %s\n", getName(), bus_device.name,
++                      resourceIndex, getMatchedName(child));
++            } else {
++                if (resourceIndex == 0) {
++                    OSNumber* count = OSDynamicCast(OSNumber, device_nub->getProperty("i2cResourceCount"));
++                    if (count && count->unsigned8BitValue() > 0)
++                        resourceCount = count->unsigned8BitValue();
++                }
+ 
+-        OSSafeReleaseNULL(child_properties);
+-        OSSafeReleaseNULL(device_nub);
++                if (!device_nub->start(this)) {
++                    device_nub->detach(this);
++                    IOLog("%s::%s Could not start nub %u for %s\n", getName(), bus_device.name,
++                          resourceIndex, getMatchedName(child));
++                } else {
++                    device_nubs->setObject(device_nub);
++                }
++            }
++
++            OSSafeReleaseNULL(child_properties);
++            OSSafeReleaseNULL(device_nub);
++        }
+     }
+     children->release();
+ 
+diff --git a/VoodooI2C/VoodooI2C/VoodooI2CDevice/VoodooI2CDeviceNub.cpp b/VoodooI2C/VoodooI2C/VoodooI2CDevice/VoodooI2CDeviceNub.cpp
+index 715cb73..ccdcaf6 100644
+--- a/VoodooI2C/VoodooI2C/VoodooI2CDevice/VoodooI2CDeviceNub.cpp
++++ b/VoodooI2C/VoodooI2C/VoodooI2CDevice/VoodooI2CDeviceNub.cpp
+@@ -18,12 +18,13 @@
+ #define super IOService
+ OSDefineMetaClassAndStructors(VoodooI2CDeviceNub, IOService);
+ 
+-bool VoodooI2CDeviceNub::attach(IOService* provider, IOService* child) {
++bool VoodooI2CDeviceNub::attach(IOService* provider, IOService* child, UInt8 i2cResourceIndex) {
+     const char *interruptMode = nullptr;
+ 
+     if (!super::attach(provider))
+         return false;
+ 
++    i2c_resource_index = i2cResourceIndex;
+     controller_name = provider->getName();
+     setProperty("acpi-device", child);
+     acpi_device = OSDynamicCast(IOACPIPlatformDevice, child);
+@@ -216,14 +217,22 @@ IOReturn VoodooI2CDeviceNub::getDeviceResources() {
+     }
+ 
+     resource_parser = use_crs_resources ? crs_parser : dsm_parser;
++    setProperty("i2cResourceCount", resource_parser.i2c_count, 8);
++    if (resource_parser.i2c_overflow) {
++        IOLog("%s::%s Too many I2C Serial Bus resources\n", getName(), acpi_device->getName());
++        return false;
++    }
++    if (i2c_resource_index >= resource_parser.i2c_count)
++        return false;
+ 
+-    use_10bit_addressing = resource_parser.i2c_info.address_mode_10Bit;
++    i2c_info selected_i2c = resource_parser.i2c_info[i2c_resource_index];
++    use_10bit_addressing = selected_i2c.address_mode_10Bit;
+     setProperty("addrWidth", use_10bit_addressing ? 10 : 7, 8);
+ 
+-    i2c_address = resource_parser.i2c_info.address;
++    i2c_address = selected_i2c.address;
+     setProperty("i2cAddress", i2c_address, 16);
+ 
+-    setProperty("sclHz", resource_parser.i2c_info.bus_speed, 32);
++    setProperty("sclHz", selected_i2c.bus_speed, 32);
+ 
+     // There is actually no way to avoid APIC interrupt if it is valid
+     if (validateAPICInterrupt() == kIOReturnSuccess)
+diff --git a/VoodooI2C/VoodooI2C/VoodooI2CDevice/VoodooI2CDeviceNub.hpp b/VoodooI2C/VoodooI2C/VoodooI2CDevice/VoodooI2CDeviceNub.hpp
+index aeae0f5..4f551ba 100644
+--- a/VoodooI2C/VoodooI2C/VoodooI2CDevice/VoodooI2CDeviceNub.hpp
++++ b/VoodooI2C/VoodooI2C/VoodooI2CDevice/VoodooI2CDeviceNub.hpp
+@@ -52,7 +52,7 @@ class EXPORT VoodooI2CDeviceNub : public IOService {
+      * @return *true* if the successfully attached and initialised, *false* otherwise
+      */
+ 
+-    bool attach(IOService* provider, IOService* child);
++    bool attach(IOService* provider, IOService* child, UInt8 i2cResourceIndex = 0);
+ 
+     /* Disables an interrupt source
+      * @source The index of the interrupt source in the case of APIC interrupts
+@@ -202,6 +202,7 @@ class EXPORT VoodooI2CDeviceNub : public IOService {
+     int gpio_irq;
+     UInt16 gpio_pin;
+     UInt8 i2c_address;
++    UInt8 i2c_resource_index {0};
+     bool has_apic_interrupts {false};
+     bool has_gpio_interrupts {false};
+     bool use_10bit_addressing {false};
