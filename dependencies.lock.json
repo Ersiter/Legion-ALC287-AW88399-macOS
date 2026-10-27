@@ -1,9 +1,9 @@
 {
   "AppleALC": {
     "repository": "https://github.com/Ersiter/AppleALC.git",
-    "commit": "5f2c884f52384ba6a12485f08ead75ebdb7faf5a",
+    "commit": "a9b406e7322c878d488cdc847a5843911dadc344",
     "upstream": "https://github.com/acidanthera/AppleALC.git",
-    "upstreamCommit": "c44a22fb41876e9c19a93e89454e2efa18006735"
+    "upstreamCommit": "ff01db21749271916d44605503499ceaa61d94b2"
   },
   "Lilu": {
     "repository": "https://github.com/acidanthera/Lilu.git",

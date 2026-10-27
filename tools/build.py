@@ -124,7 +124,7 @@ def main():
     (dist / 'build-manifest.json').write_text(json.dumps(manifest, indent=2) + '\n')
     checksums.append(f"{hashlib.sha256((dist / 'build-manifest.json').read_bytes()).hexdigest()}  build-manifest.json\n")
     (dist / 'SHA256SUMS').write_text(''.join(checksums))
-    run('ditto', '-c', '-k', '--keepParent', dist, BUILD / 'Legion-ALC287-AW88399-macOS-0.1.0.zip')
+    run('ditto', '-c', '-k', '--keepParent', dist, BUILD / 'Legion-ALC287-AW88399-macOS-0.1.1.zip')
     print('Built firmware-free release. Import the qualified ACF locally before installing AW88399Driver.')
 
 

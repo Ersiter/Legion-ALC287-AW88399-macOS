@@ -14,7 +14,7 @@ The script builds Lilu Debug for the AppleALC development interface, Lilu Releas
 
 Output:
 
-- `.build/Legion-ALC287-AW88399-macOS-0.1.0.zip`: firmware-free matching kext set and installation materials.
+- `.build/Legion-ALC287-AW88399-macOS-0.1.1.zip`: firmware-free matching kext set and installation materials.
 - `dist/build-manifest.json`: project/dependency commits, Xcode/SDK versions, and file hashes.
 - `dist/SHA256SUMS`: package-content hashes before local firmware import.
 

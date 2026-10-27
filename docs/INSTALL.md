@@ -46,11 +46,11 @@ For this board the real root bridge UID is 2; its HDEF property path is:
 
 ```text
 PciRoot(0x2)/Pci(0x1f,0x3)
-  layout-id:     Data 0D000000
-  alc-layout-id: Data 0D000000
+  layout-id:     Data 63000000
+  alc-layout-id: Data 63000000
 ```
 
-The root UID is not PCI bus number 0x80. A key prefixed with `#` is ignored by OpenCore. Merge `keepsyms=1 alcverbs=1 -vi2c-force-polling` into existing boot arguments without dropping unrelated requirements. `alcverbs=1` enables the existing AppleALC verb hook used by this fork; it is required for the shared speaker control. Do not add a conflicting `alcid` override. Limit the audio entries to Darwin 25.x as shown in the fragment.
+For version 0.1.1, select layout 99; do not retain an `alcid=13` override from the previous board-specific release. The root UID is not PCI bus number 0x80. A key prefixed with `#` is ignored by OpenCore. Merge `keepsyms=1 alcverbs=1 -vi2c-force-polling` into existing boot arguments without dropping unrelated requirements. `alcverbs=1` enables the existing AppleALC verb hook used by this fork; it is required for the shared speaker control. Do not add a conflicting `alcid` override. Limit the audio entries to Darwin 25.x as shown in the fragment.
 
 Validate the merged configuration with the matching OpenCore `ocvalidate`, then boot that EFI. A successful file copy or config validation is not proof that the intended EFI was booted.
 

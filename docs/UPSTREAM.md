@@ -4,13 +4,13 @@ Keep the working source and matched release package available before proposing u
 
 ## AppleALC
 
-Base: `acidanthera/AppleALC` commit `c44a22fb41876e9c19a93e89454e2efa18006735` (version 1.9.8). Fork change: `5f2c884f52384ba6a12485f08ead75ebdb7faf5a`.
+Submitted [PR #975](https://github.com/acidanthera/AppleALC/pull/975): `ALC287: add layout 99 for Lenovo Legion IAX10H shared-DAC speakers`.
 
-The fork contains three file changes: the shared-DAC control hook, one stereo platform path with complete Amp metadata, and the corresponding layout13 pin defaults. A proposal must explain why two software paths caused a four-channel converter assignment, and why copying identical left/right bindings did not deduplicate the DAC. Include sanitized HAL/HDA format values and owner feedback; do not attach complete IORegistry logs or private identifiers.
+Base: `acidanthera/AppleALC` commit `ff01db21749271916d44605503499ceaa61d94b2` (version 1.9.8). Fork commit: `a9b406e7322c878d488cdc847a5843911dadc344`, branch `feature/alc287-legion-shared-dac`.
 
-Before an upstream PR, discuss board isolation and the layout13 scope with maintainers: the hook is guarded by HDEF/controller/codec/requested-layout, while the resource change affects other ALC287 users selecting layout13. Upstream may prefer a new board-specific layout. Do not claim this fork's layout13 is a universal replacement. The existing `alcverbs=1` gate is also an upstream integration consideration.
+The PR adds dedicated layout/platform 99 and pin defaults for this board, preserving existing layout 13 and every previous pin entry. Its shared-DAC control hook is restricted to HDEF, 7F50, ALC287 and requested layout 99. The existing `alcverbs=1` gate remains required. One stereo path avoids AppleHDA's four-channel allocation for a duplicated converter; pin14 controls follow the primary pin17 path.
 
-Suggested title: `ALC287: keep Legion dual speakers on one stereo converter`.
+The earlier layout-13 implementation has owner-confirmed playback results. Dedicated layout 99 requires separate boot qualification. Submission is not upstream acceptance; check the PR for review and CI status.
 
 ## VoodooI2C
 
@@ -22,4 +22,4 @@ Suggested title: `Enumerate multiple I2C Serial Bus resources for ACPI devices`.
 
 Retain Linux/AWINIC source provenance and licenses. The timer-based macOS lifecycle and personality-based firmware delivery are implementation differences from Linux; they must be described explicitly. HDMI/NVIDIA changes are not included in these proposals.
 
-These are preparation notes, not submitted PRs or upstream acceptance claims.
+The VoodooI2C and AW88399 items remain preparation notes, not submitted PRs. No upstream acceptance is claimed.

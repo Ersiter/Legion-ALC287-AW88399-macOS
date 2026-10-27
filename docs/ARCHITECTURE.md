@@ -12,7 +12,7 @@ AppleHDA sees one complete stereo software path, pin17→DAC02, including the wo
 
 When enabling pin17, the mirror powers pin14, reads its actual connection list, finds the DAC02 selector, sets that selector and the original EAPD value, copies the primary pin's current left/right output amp state, then enables pin14. It does not guess selector zero, force unmute, change gain, or allocate another stream. Unsupported connection lists or failed verbs return an error rather than silently reporting success. Calls use the original trampoline, avoiding recursive hook entry.
 
-The guard requires ALC287 vendor ID 0x10ec0287, HDEF, Intel controller 0x7f50, and `alc-layout-id=13`. AppleALC may change the native `layout-id` internally, so that property is not used as the requested-layout guard. Other pins, DAC format verbs, GET queries, microphone/headphone routing, and NVIDIA codecs pass through unchanged.
+The guard requires ALC287 vendor ID 0x10ec0287, HDEF, Intel controller 0x7f50, and `alc-layout-id=99`. AppleALC may change the native `layout-id` internally, so that property is not used as the requested-layout guard. Other pins, DAC format verbs, GET queries, microphone/headphone routing, and NVIDIA codecs pass through unchanged.
 
 Both internal-speaker pin defaults remain `0x90170110`; the pin14 EAPD initialization is retained. `ALC287SharedDAC*` IORegistry properties expose the selected pins, discovered selector, last error, and output-enable state.
 

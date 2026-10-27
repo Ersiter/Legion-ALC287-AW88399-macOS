@@ -1,9 +1,19 @@
-# 0.1.0 — initial macOS audio suite
+# 0.1.1-rc.1 — dedicated Legion layout 99
 
-Includes AW88399Driver source and a matched build of Lilu, the shared-DAC AppleALC fork, VoodooI2C with dual-resource and 7F4C–7F4F matching, VoodooInput plug-in, and VoodooI2CHID. Dependencies are pinned by commit; the package includes hashes and build metadata.
+Updates the pinned AppleALC dependency to `a9b406e7322c878d488cdc847a5843911dadc344`, submitted as [AppleALC PR #975](https://github.com/acidanthera/AppleALC/pull/975). The Legion shared-DAC speaker configuration now uses dedicated **layout 99**, preserving upstream layout 13 for other machines.
 
-The qualified embedded-firmware baseline on Legion Y9000P IAX10H (83F5), macOS 26.7, has owner-confirmed tweeter/woofer output, internal microphone, volume and mute. Raised pitch and intermittent playback were reported resolved after the shared-DAC correction.
+When upgrading, change HDEF `layout-id` and `alc-layout-id` to Data `63000000` (99), and replace any conflicting `alcid=13` override with 99. Keep `alcverbs=1` enabled. The supplied OpenCore fragment and installation guide use the new layout.
 
-This public package uses local ACF import into the driver personality; its hardware boot qualification remains pending. Import the exact qualified firmware before installation. No vendor firmware, Apple system drivers, complete EFI, or personal logs are included. SimpleHDA/AppleHDA restoration must be obtained separately. HDMI is outside this release.
+The package also includes the optional pinned firmware download/import helper:
 
-Read README.md and docs/INSTALL.md before changing an EFI. The CI package is a prerelease until the public firmware delivery variant is confirmed on hardware.
+```sh
+python3 tools/import_firmware.py --download Kexts/AW88399Driver.kext
+```
+
+The helper downloads and verifies the qualified ACF on the user's computer. CI and release archives contain no amplifier firmware. Existing local-file import remains available. Keep any firmware-populated bundle private.
+
+AW88399Driver, Lilu, VoodooI2C and VoodooInput source baselines are unchanged. No HDMI/NVIDIA driver is included. Tahoe's AppleHDA restoration remains a separate prerequisite.
+
+The previous layout-13 implementation had owner-confirmed tweeter/woofer output, microphone, volume/mute and resolution of intermittent/raised-pitch playback. The dedicated layout-99 resource registration and public firmware delivery variant have not yet been boot-qualified. This is a prerelease; a successful CI build is not a hardware playback result.
+
+See docs/INSTALL.md for setup and rollback.
